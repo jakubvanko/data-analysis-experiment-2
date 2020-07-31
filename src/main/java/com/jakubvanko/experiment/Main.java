@@ -1,8 +1,11 @@
 package com.jakubvanko.experiment;
 
 import picocli.CommandLine;
+import tech.tablesaw.api.Table;
+import tech.tablesaw.io.csv.CsvReadOptions;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -15,13 +18,13 @@ import java.util.List;
 )
 public class Main implements Runnable {
 
-    @CommandLine.Option(names = "-d", description = "Path to remote or local CSV file", converter = InputFileTypeConverter.class)
+    @CommandLine.Option(names = { "-d", "--dataset" }, description = "Path to remote or local CSV file", converter = InputFileTypeConverter.class)
     private File inputFile;
 
-    @CommandLine.Option(names = "-m", description = "Manipulation methods", arity = "")
+    @CommandLine.Option(names = { "-m", "--methods" }, description = "Manipulation methods", arity = "")
     private List<String> manipulationMethods;
 
-    @CommandLine.Option(names = "-o", description = "Output type (json, xml, plain)")
+    @CommandLine.Option(names = { "-o", "--output-type" }, description = "Output type (json, xml, plain)")
     private String outputType = "plain";
 
     //@CommandLine.Parameters(index = "0", description = "Path of the output file")
@@ -38,12 +41,12 @@ public class Main implements Runnable {
 
     @Override
     public void run() {
-        // TODO: WORK
-        System.out.println(inputFile.canWrite());
-        System.out.println(inputFile.canRead());
-        System.out.println(inputFile.getAbsolutePath());
-        System.out.println(inputFile.isFile());
-        System.out.println();
-        System.out.println();
+        CsvReadOptions.Builder builder = CsvReadOptions.builder(inputFile).header(false);
+        try {
+            Table table = Table.read().usingOptions(builder.build());
+            // TODO: TABLE IS HERE LOADED ;)
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
