@@ -27,8 +27,8 @@ public class Main implements Runnable {
     )
     private File inputFile;
 
-    @CommandLine.Option(names = {"-m", "--methods"}, description = "Manipulation methods", arity = "")
-    private List<String> manipulationMethods;
+    @CommandLine.Option(names = {"-m", "--methods"}, description = "Manipulation methods", arity = "1..*")
+    private List<Actions> manipulationMethods;
 
     @CommandLine.Option(names = {"-o", "--output-type"}, description = "Output type (json, xml, plain)")
     private String outputType = "plain";
@@ -53,7 +53,9 @@ public class Main implements Runnable {
                 .dateFormat(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         try {
             Table table = Table.read().usingOptions(builder.build());
-
+            for (Actions actions : manipulationMethods){
+                table = actions.examineTable(table);
+            }
 
 
             // TODO: TABLE IS HERE LOADED ;)
