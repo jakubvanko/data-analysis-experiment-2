@@ -12,7 +12,7 @@ public class InputFileTypeConverter implements CommandLine.ITypeConverter<File> 
 
     private final UrlValidator urlValidator;
 
-    public InputFileTypeConverter(){
+    public InputFileTypeConverter() {
         urlValidator = new UrlValidator(new String[]{"http", "https"});
     }
 
