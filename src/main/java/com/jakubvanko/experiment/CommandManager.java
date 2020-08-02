@@ -53,6 +53,8 @@ public class CommandManager implements Runnable {
     @Override
     public void run() {
         Table table = tableLoadingStrategy.loadTable(inputFile);
+        OutputStrategyFactory outputStrategyFactory = new OutputStrategyFactory();
+        IOutputStrategy outputStrategy = outputStrategyFactory.createOutputStrategy(outputType, outputFile);
         for (Actions actions : manipulationMethods) {
             table = actions.examineTable(table);
         }
