@@ -6,4 +6,5 @@ public interface IOutputStrategy {
     void increaseLevel(String header);
     void decreaseLevel();
     void resetLevel();
+    void save();
 }

@@ -22,7 +22,9 @@ public class InputFileTypeConverter implements CommandLine.ITypeConverter<File> 
         if (urlValidator.isValid(s)) {
             URL url = new URL(s);
             tempFile = new File("temp.csv");
+            System.out.println("Downloading dataset from a remote location");
             FileUtils.copyURLToFile(url, tempFile);
+            System.out.println("Dataset downloaded successfully");
         } else {
             tempFile = new File(s);
         }

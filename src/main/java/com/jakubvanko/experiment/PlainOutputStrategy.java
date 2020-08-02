@@ -5,34 +5,28 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlainOutputStrategy implements IOutputStrategy {
 
     private int currentLevel = 0;
     private final File file;
+    private final List<String> lines;
 
     public PlainOutputStrategy(Path path) {
         this.file = path.toFile();
+        lines = new ArrayList<>();
     }
 
     @Override
     public void write(String key, String value) {
-        try {
-            FileUtils.writeStringToFile(file, formatString(key, value));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        write(key + ": " + value);
     }
 
     @Override
     public void write(String value) {
-        try {
-            FileUtils.writeStringToFile(file, formatString(value));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        lines.add(formatString(value));
     }
 
     @Override
@@ -53,17 +47,22 @@ public class PlainOutputStrategy implements IOutputStrategy {
         currentLevel = 0;
     }
 
+    @Override
+    public void save() {
+        try {
+            FileUtils.writeLines(file, lines);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private String formatString(String string) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < currentLevel; i++) {
             stringBuilder.append("    ");
         }
         stringBuilder.append(string);
-        stringBuilder.append("\n");
         return stringBuilder.toString();
-    }
-
-    private String formatString(String key, String value) {
-        return formatString(key + ": " + value);
     }
 }

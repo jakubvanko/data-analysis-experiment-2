@@ -56,7 +56,11 @@ public class CommandManager implements Runnable {
         OutputStrategyFactory outputStrategyFactory = new OutputStrategyFactory();
         IOutputStrategy outputStrategy = outputStrategyFactory.createOutputStrategy(outputType, outputFile);
         for (Actions actions : manipulationMethods) {
-            table = actions.examineTable(table);
+            outputStrategy.resetLevel();
+            table = actions.examineTable(table, outputStrategy);
         }
+        outputStrategy.save();
+        System.out.println("All methods were applied successfully");
+        System.out.println("The resulting file was saved to the specified location");
     }
 }
