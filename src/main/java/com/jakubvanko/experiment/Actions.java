@@ -69,6 +69,5 @@ public enum Actions {
         }
     };
 
-
     public abstract Table examineTable(Table table, IOutputStrategy outputStrategy);
 }
