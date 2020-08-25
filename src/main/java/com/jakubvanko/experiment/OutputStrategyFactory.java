@@ -3,8 +3,8 @@ package com.jakubvanko.experiment;
 import java.nio.file.Path;
 
 public class OutputStrategyFactory {
-    public IOutputStrategy createOutputStrategy(String type, Path path){
-        switch (type){
+    public OutputStrategy createOutputStrategy(String type, Path path) {
+        switch (type) {
             case "plain": {
                 return new PlainOutputStrategy(path);
             }

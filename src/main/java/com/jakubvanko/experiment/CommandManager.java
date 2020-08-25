@@ -44,9 +44,9 @@ public class CommandManager implements Runnable {
     )
     private Path outputFile;
 
-    private final ITableLoadingStrategy tableLoadingStrategy;
+    private final TableLoadingStrategy tableLoadingStrategy;
 
-    public CommandManager(ITableLoadingStrategy tableLoadingStrategy) {
+    public CommandManager(TableLoadingStrategy tableLoadingStrategy) {
         this.tableLoadingStrategy = tableLoadingStrategy;
     }
 
@@ -54,7 +54,7 @@ public class CommandManager implements Runnable {
     public void run() {
         Table table = tableLoadingStrategy.loadTable(inputFile);
         OutputStrategyFactory outputStrategyFactory = new OutputStrategyFactory();
-        IOutputStrategy outputStrategy = outputStrategyFactory.createOutputStrategy(outputType, outputFile);
+        OutputStrategy outputStrategy = outputStrategyFactory.createOutputStrategy(outputType, outputFile);
         for (Actions actions : manipulationMethods) {
             outputStrategy.resetLevel();
             table = actions.examineTable(table, outputStrategy);

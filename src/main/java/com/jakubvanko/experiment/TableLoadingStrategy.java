@@ -4,6 +4,6 @@ import tech.tablesaw.api.Table;
 
 import java.io.File;
 
-public interface ITableLoadingStrategy {
+public interface TableLoadingStrategy {
     Table loadTable(File inputFile);
 }

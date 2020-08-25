@@ -1,6 +1,6 @@
 package com.jakubvanko.experiment;
 
-public interface IOutputStrategy {
+public interface OutputStrategy {
     void write(String key, String value);
     void write(String value);
     void increaseLevel(String header);

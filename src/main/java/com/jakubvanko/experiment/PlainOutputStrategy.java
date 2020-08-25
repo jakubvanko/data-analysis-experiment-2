@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlainOutputStrategy implements IOutputStrategy {
+public class PlainOutputStrategy implements OutputStrategy {
 
     private int currentLevel = 0;
     private final File file;

@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
-public class CsvTableLoadingStrategy implements ITableLoadingStrategy {
+public class CsvTableLoadingStrategy implements TableLoadingStrategy {
     @Override
     public Table loadTable(File inputFile) {
         CsvReadOptions.Builder builder = CsvReadOptions
