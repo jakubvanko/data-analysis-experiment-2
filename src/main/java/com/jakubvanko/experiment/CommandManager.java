@@ -5,6 +5,7 @@ import picocli.CommandLine;
 import tech.tablesaw.api.Table;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -12,7 +13,9 @@ import java.util.List;
         name = "da-tool",
         parameterListHeading = "%nParameters:%n",
         optionListHeading = "%nOptions:%n",
-        description = "%nPrototype for simple dataset analysis"
+        description = "%nPrototype for simple dataset analysis",
+        mixinStandardHelpOptions = true,
+        version = "2.0"
 )
 public class CommandManager implements Runnable {
     @CommandLine.Option(
@@ -54,16 +57,20 @@ public class CommandManager implements Runnable {
     @Override
     public void run() {
         try {
-            Table table = tableLoadingStrategy.loadTable(inputFile);
-            OutputStrategy outputStrategy = outputStrategyFactory.createOutputStrategy(outputFile);
-            for (ActionFactory actionFactory : manipulationMethods) {
-                table = actionFactory.createAction(outputStrategy).triggerAction(table);
-            }
-            outputStrategy.save();
+            setupAndTriggerActions();
             logSuccess();
         } catch (Exception e) {
             logFailure(e);
         }
+    }
+
+    private void setupAndTriggerActions() throws IOException {
+        Table table = tableLoadingStrategy.loadTable(inputFile);
+        OutputStrategy outputStrategy = outputStrategyFactory.createOutputStrategy(outputFile);
+        for (ActionFactory actionFactory : manipulationMethods) {
+            table = actionFactory.createAction(outputStrategy).triggerAction(table);
+        }
+        outputStrategy.save();
     }
 
     private void logSuccess() {
