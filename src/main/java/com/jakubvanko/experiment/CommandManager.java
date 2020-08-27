@@ -35,7 +35,7 @@ public class CommandManager implements Runnable {
             description = "Output type (json, xml, plain)",
             defaultValue = "plain"
     )
-    private String outputType;
+    private OutputStrategyFactory outputStrategyFactory;
 
     @CommandLine.Parameters(
             index = "0",
@@ -53,8 +53,7 @@ public class CommandManager implements Runnable {
     @Override
     public void run() {
         Table table = tableLoadingStrategy.loadTable(inputFile);
-        OutputStrategyFactory outputStrategyFactory = new OutputStrategyFactory();
-        OutputStrategy outputStrategy = outputStrategyFactory.createOutputStrategy(outputType, outputFile);
+        OutputStrategy outputStrategy = outputStrategyFactory.createOutputStrategy(outputFile);
         for (Actions actions : manipulationMethods) {
             outputStrategy.resetLevel();
             table = actions.examineTable(table, outputStrategy);
