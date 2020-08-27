@@ -30,13 +30,13 @@ public class PlainOutputStrategy implements OutputStrategy {
     }
 
     @Override
-    public void increaseLevel(String header) {
+    public void createSection(String header) {
         write(header);
         currentLevel += 1;
     }
 
     @Override
-    public void decreaseLevel() {
+    public void finishSection() {
         if (currentLevel > 0) {
             currentLevel -= 1;
         }

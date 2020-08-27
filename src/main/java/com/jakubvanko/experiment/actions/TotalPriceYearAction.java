@@ -23,7 +23,7 @@ public class TotalPriceYearAction extends LoggingAction {
 
     @Override
     protected void logInformation(Table table) {
-        outputStrategy.increaseLevel("Total price per year (only PAID orders)");
+        outputStrategy.createSection("Total price per year (only PAID orders)");
         for (Row row : table) {
             outputStrategy.write(
                     Integer.toString(row.getInt(0)),

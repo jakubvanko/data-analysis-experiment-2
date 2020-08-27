@@ -20,7 +20,7 @@ public class AveragePriceYearAction extends LoggingAction {
 
     @Override
     protected void logInformation(Table table) {
-        outputStrategy.increaseLevel("Average price per year");
+        outputStrategy.createSection("Average price per year");
         for (Row row : table) {
             outputStrategy.write(
                     row.getInt(0) + " " + row.getString(1),

@@ -22,7 +22,7 @@ public class TopThreeCustomersAction extends LoggingAction {
 
     @Override
     protected void logInformation(Table table) {
-        outputStrategy.increaseLevel("Top three customers");
+        outputStrategy.createSection("Top three customers");
         for (Row row : table) {
             outputStrategy.write(
                     row.getString(0),
