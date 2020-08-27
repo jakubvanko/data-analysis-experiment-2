@@ -7,6 +7,7 @@ This repository contains code and a compiled jar file for a simple data analysis
 - [Introduction](#introduction)
 - [How to use the prototype](#instructions)
 - [Documentation](#documentation)
+- [Changelog](#changelog)
 
 ## Introduction
 
@@ -18,11 +19,11 @@ The prototype should meet all of the requirements specified in the assignment.
 
 ## Instructions
 
-The tool has a help screen that can be triggered by using it without any arguments:
+The tool has a help screen that can be triggered by using the -h option:
 ```
-java -jar da-tool.jar
+java -jar da-tool.jar -h
 ```
-![](https://ctrlv.cz/shots/2020/08/02/56NS.png)
+![](https://ctrlv.cz/shots/2020/08/27/2QxV.png)
 
 ### Options and parameters
 
@@ -30,7 +31,7 @@ The options can be specified almost in any order, however, it is advised to stat
 
 ##### -d
 
-Represents a path to a local or remote CSV file. The only remote path supported is an HTTP/HTTPS link. It is advised to wrap the path in double quotes ("). If a remote dataset is specified, it will be downloaded before other options and parameters are checked. It is vital to only use csv files without header!
+Represents a path to a local or remote CSV file. The only remote path supported is an HTTP/HTTPS link. It is advised to wrap the path in double quotes ("). If a remote dataset is specified, it will be downloaded before other options and parameters are checked. It is vital to only use csv files without header!'
 
 ##### -m
 
@@ -68,3 +69,7 @@ java -jar da-tool.jar -d "C:\Users\main\Desktop\Test\temp.bla" -m REMOVE_EMPTY_E
 ## Documentation
 
 I did my best to write self-documenting code. I made use of a lot of libraries (most notably picocli and tablesaw) and most of the logic was outsorced to stated dependencies. I made use of some simpler design patterns (Strategy, Factory) to make the quality of the prototype code as great as possible.
+
+## Changelog
+
+Compared to the previous version, the most major change was a complete refactoring of the manipulation actions which were changed from enums to custom classes to provide greater robustness and a cleaner code. Other changes include refactoring of output strategy factory, refactoring of names and simplification of certain methods. Even though test driven development was also a part of the assignment, I came to the conclusion that it would not provide sufficient benefit to the code quality when compared to the amount of time it would take to implement it.
