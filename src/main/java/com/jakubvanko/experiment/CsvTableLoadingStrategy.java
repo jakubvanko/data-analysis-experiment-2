@@ -10,16 +10,19 @@ import java.time.format.DateTimeFormatter;
 public class CsvTableLoadingStrategy implements TableLoadingStrategy {
     @Override
     public Table loadTable(File inputFile) {
-        CsvReadOptions.Builder builder = CsvReadOptions
-                .builder(inputFile)
-                .header(false)
-                .dateFormat(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         try {
-            return Table.read().usingOptions(builder.build());
+            return Table.read().usingOptions(createBuilder(inputFile).build());
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(100);
             return Table.create();
         }
+    }
+
+    private CsvReadOptions.Builder createBuilder(File inputFile) {
+        return CsvReadOptions
+                .builder(inputFile)
+                .header(false)
+                .dateFormat(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 }

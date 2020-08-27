@@ -1,5 +1,6 @@
 package com.jakubvanko.experiment;
 
+import com.jakubvanko.experiment.actions.ActionFactory;
 import picocli.CommandLine;
 import tech.tablesaw.api.Table;
 
@@ -28,7 +29,7 @@ public class CommandManager implements Runnable {
             arity = "1..*",
             required = true
     )
-    private List<Actions> manipulationMethods;
+    private List<ActionFactory> manipulationMethods;
 
     @CommandLine.Option(
             names = {"-o", "--output-type"},
@@ -54,9 +55,9 @@ public class CommandManager implements Runnable {
     public void run() {
         Table table = tableLoadingStrategy.loadTable(inputFile);
         OutputStrategy outputStrategy = outputStrategyFactory.createOutputStrategy(outputFile);
-        for (Actions actions : manipulationMethods) {
+        for (ActionFactory actionFactory : manipulationMethods) {
             outputStrategy.resetLevel();
-            table = actions.examineTable(table, outputStrategy);
+            table = actionFactory.createAction(outputStrategy).triggerAction(table);
         }
         outputStrategy.save();
         System.out.println("All methods were applied successfully");
