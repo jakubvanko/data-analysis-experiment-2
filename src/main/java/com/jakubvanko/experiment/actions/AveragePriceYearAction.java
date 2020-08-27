@@ -26,5 +26,6 @@ public class AveragePriceYearAction extends LoggingAction {
                     row.getInt(0) + " " + row.getString(1),
                     Double.toString(row.getDouble(2)));
         }
+        outputStrategy.finishSection();
     }
 }

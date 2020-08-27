@@ -9,14 +9,8 @@ import java.time.format.DateTimeFormatter;
 
 public class CsvTableLoadingStrategy implements TableLoadingStrategy {
     @Override
-    public Table loadTable(File inputFile) {
-        try {
-            return Table.read().usingOptions(createBuilder(inputFile).build());
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(100);
-            return Table.create();
-        }
+    public Table loadTable(File inputFile) throws IOException {
+        return Table.read().usingOptions(createBuilder(inputFile).build());
     }
 
     private CsvReadOptions.Builder createBuilder(File inputFile) {

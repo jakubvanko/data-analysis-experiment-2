@@ -28,5 +28,6 @@ public class TopThreeCustomersAction extends LoggingAction {
                     row.getString(0),
                     Double.toString(row.getDouble(1)));
         }
+        outputStrategy.finishSection();
     }
 }

@@ -29,5 +29,6 @@ public class TotalPriceYearAction extends LoggingAction {
                     Integer.toString(row.getInt(0)),
                     Double.toString(row.getDouble(1)));
         }
+        outputStrategy.finishSection();
     }
 }

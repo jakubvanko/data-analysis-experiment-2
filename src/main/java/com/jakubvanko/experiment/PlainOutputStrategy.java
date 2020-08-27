@@ -48,13 +48,8 @@ public class PlainOutputStrategy implements OutputStrategy {
     }
 
     @Override
-    public void save() {
-        try {
-            FileUtils.writeLines(file, lines);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void save() throws IOException {
+        FileUtils.writeLines(file, lines);
     }
 
     private String formatString(String string) {

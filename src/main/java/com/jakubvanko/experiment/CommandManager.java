@@ -53,14 +53,26 @@ public class CommandManager implements Runnable {
 
     @Override
     public void run() {
-        Table table = tableLoadingStrategy.loadTable(inputFile);
-        OutputStrategy outputStrategy = outputStrategyFactory.createOutputStrategy(outputFile);
-        for (ActionFactory actionFactory : manipulationMethods) {
-            outputStrategy.resetLevel();
-            table = actionFactory.createAction(outputStrategy).triggerAction(table);
+        try {
+            Table table = tableLoadingStrategy.loadTable(inputFile);
+            OutputStrategy outputStrategy = outputStrategyFactory.createOutputStrategy(outputFile);
+            for (ActionFactory actionFactory : manipulationMethods) {
+                table = actionFactory.createAction(outputStrategy).triggerAction(table);
+            }
+            outputStrategy.save();
+            logSuccess();
+        } catch (Exception e) {
+            logFailure(e);
         }
-        outputStrategy.save();
+    }
+
+    private void logSuccess() {
         System.out.println("All methods were applied successfully");
         System.out.println("The resulting file was saved to the specified location");
+    }
+
+    private void logFailure(Exception e) {
+        System.out.println("There was an error");
+        e.printStackTrace();
     }
 }
